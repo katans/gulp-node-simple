@@ -1,0 +1,29 @@
+{
+  "name": "gulp-node-simple",
+  "version": "1.0.0",
+  "description": "gulp plugin compile lodash template to a function",
+  "main": "index.js",
+  "dependencies": {
+    "glob": "^3.2.11",
+    "lodash.template": "^2.4.1",
+    "lodash.escape": "^2.4.1",
+    "gulp-util": "^2.2.20",
+    "through2": "^0.4.2",
+    "lodash.unescape": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "gulp",
+    "simple",
+    "template"
+  ],
+  "author": "hordeliu79@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/katans/gulp-node-simple/issues"
+  },
+  "homepage": "https://github.com/katans/gulp-node-simple",
+}
