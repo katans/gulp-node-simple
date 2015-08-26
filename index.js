@@ -14,20 +14,10 @@ var PluginError = gutil.PluginError;
 var PLUGIN_NAME = 'gulp-fillnode';
 
 
-var scriptText = ['<script>',
-	'window.BigPipe = function(id,html){',
-	'	if(!id || !html){',
-	'		return;',
-	'	}',
-	'	document.getElementById(id).innerHTML = html;',
-	'}',
-	'window.BigPipe = function(id,html){',
-	'	if(!id || !html){',
-	'		return;',
-	'	}',
-	'	document.getElementById(id).innerHTML = html;',
-	'}',
-'</script></head>'];
+var scriptText = '<script>window.BigPipe = function(id,html){ if(!id || !html){ return; };document.getElementById(id).innerHTML = html;};\
+    window.BigPipe.remove = function(id) { if(!id) return; var node = document.getElementById(id); node.parentNode.removeChild(node); };\
+</script></head>';
+
 
 module.exports = function(options){
 
@@ -92,7 +82,7 @@ module.exports = function(options){
 		//bigpip方式.这里添加相关js代码.
 		if(options && options.bigpip){
             var tmp = content.split('</head>');
-            tmp[0] += scriptText.join('');
+            tmp[0] += scriptText;
             content = tmp.join('');
 		}
 
