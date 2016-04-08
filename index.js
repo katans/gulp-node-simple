@@ -18,9 +18,7 @@ var scriptText = '<script>window.BigPipe = function(id,html){ if(!id || !html){ 
     window.BigPipe.remove = function(id) { if(!id) return; var node = document.getElementById(id); node.parentNode.removeChild(node); };\
 </script></head>';
 
-
 module.exports = function(options){
-
     options = options || {};
 
     var tmplReg = /<!--\s*tmpl:pack \d*\s*-->/gim;
@@ -68,7 +66,6 @@ module.exports = function(options){
 
 
     function createFile(name, content) {
-        console.log(name,extName);
         return new gutil.File({
             path: path.join(path.relative(basePath, mainPath), name),
             contents: new Buffer(compiler(name,content))
@@ -78,16 +75,16 @@ module.exports = function(options){
     /*
     分块关键字<!--tmpl:pack 0-->
     */
-	function process(content, push, callback) {
-		//bigpip方式.这里添加相关js代码.
-		if(options && options.bigpip){
+    function process(content, push, callback) {
+        //bigpip方式.这里添加相关js代码.
+        if(options && options.bigpip){
             var tmp = content.split('</head>');
             tmp[0] += scriptText;
             content = tmp.join('');
-		}
+        }
 
         var packList = content.split(tmplReg);
-		if(options && options.pack && packList.length > 1){
+        if(options && options.pack && packList.length > 1){
             for(var i =0,l=packList.length;i<l;i++){
                 try{
                     var file = createFile(mainName.replace(/(.html|.ejs)/ig,'_'+i+'.js'), packList[i]);
@@ -96,15 +93,15 @@ module.exports = function(options){
                     console.log(e);
                 }
             }
-		}else{
+        }else{
             var file = createFile(mainName.replace(/(.html|.ejs)/ig,'.js'), content);
             push(file);
-		}
+        }
         callback(); 
-	}
+    }
 
     return through.obj(function(file, enc, callback) {
-
+        
         if (file.isNull()) {
             this.push(file); // Do nothing if no contents
             callback();
